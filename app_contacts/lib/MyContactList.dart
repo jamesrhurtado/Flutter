@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:app_contacts/MyContactDetails.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -28,7 +29,7 @@ class _MyContactListState extends State<MyContactList> {
   }
 
   @override
-  void initState(){
+  void initState() {
     this.makeRequest();
   }
 
@@ -45,11 +46,17 @@ class _MyContactListState extends State<MyContactList> {
                 title: Text(data[i]['name']['first']),
                 subtitle: Text(data[i]['phone']),
                 leading: CircleAvatar(
-                  backgroundImage: NetworkImage(data[i]['picture']['thumbnail']),
-                )
+                  backgroundImage:
+                      NetworkImage(data[i]['picture']['thumbnail']),
+                ),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (BuildContext context) =>
+                              MyContactDetails(data[i])));
+                },
               );
-            }
-        )
-    );
+            }));
   }
 }

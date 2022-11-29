@@ -47,44 +47,57 @@ class _ShowListState extends State<ShowList> {
     showData();
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text("My shopping list")
-      ),
+      appBar: AppBar(title: const Text("My shopping list")),
       body: ListView.builder(
         itemCount: (shoppingList != null) ? shoppingList.length : 0,
         itemBuilder: (BuildContext context, int index) {
-          return ListTile(
-            title: Text(shoppingList[index].name),
-            leading: CircleAvatar(
-              child: Text(shoppingList[index].priority.toString()),
-            ),
-            trailing: IconButton(
-              icon: Icon(Icons.edit),
-              onPressed: () {
-                showDialog(
-                    context: context,
-                    builder: (BuildContext context) => dialog!
-                        .buildDialog(context, shoppingList[index], false));
+          return Dismissible(
+            key: Key(shoppingList[index].name),
+            onDismissed: (direction) {
+              String strName = shoppingList[index].name;
+              helper.deleteList(shoppingList[index]);
+              setState(() {
+                shoppingList.removeAt(index);
+              });
+              
+
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text("$strName has been removed")));
+            },
+            child: ListTile(
+              title: Text(shoppingList[index].name),
+              leading: CircleAvatar(
+                child: Text(shoppingList[index].priority.toString()),
+              ),
+              trailing: IconButton(
+                icon: Icon(Icons.edit),
+                onPressed: () {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) => dialog.buildDialog(context, shoppingList[index], false));
+                },
+              ),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            ItemsScreen(shoppingList[index])));
               },
             ),
-            onTap: (){
-              Navigator.push(context, 
-                MaterialPageRoute(builder: (context) => 
-                ItemsScreen(shoppingList[index])));
-            },
           );
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: (){
+        onPressed: () {
           showDialog(
-            context: context,
-            builder: (BuildContext context) => dialog!
-              .buildDialog(context, ShoppingList(0, '', 0), true));
+              context: context,
+              builder: (BuildContext context) =>
+                  dialog.buildDialog(context, ShoppingList(0, '', 0), true));
         },
-        child: Icon(Icons.add),
         backgroundColor: Colors.lightGreen,
-        ),
+        child: const Icon(Icons.add),
+      ),
     );
   }
 

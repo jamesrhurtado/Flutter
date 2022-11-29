@@ -55,26 +55,30 @@ class DbHelper {
     final List<Map<String, dynamic>> maps = await db!.query('lists');
 
     return List.generate(maps.length, (i) {
-      return ShoppingList(
-        maps[i]['id'], 
-        maps[i]['name'], 
-        maps[i]['priority']);
+      return ShoppingList(maps[i]['id'], maps[i]['name'], maps[i]['priority']);
     });
   }
 
-
-    //listar tabla "items"
+  //listar tabla "items"
   Future<List<ListItems>> getItems(int idList) async {
-    final List<Map<String, dynamic>> maps = await db!.query('items', where: 'idList = ?', whereArgs: [idList]);
+    final List<Map<String, dynamic>> maps =
+        await db!.query('items', where: 'idList = ?', whereArgs: [idList]);
 
     return List.generate(maps.length, (i) {
-      return ListItems(
-        maps[i]['id'], 
-        maps[i]['idList'], 
-        maps[i]['name'],
-        maps[i]['quantity'],
-        maps[i]['note']
-        );
+      return ListItems(maps[i]['id'], maps[i]['idList'], maps[i]['name'],
+          maps[i]['quantity'], maps[i]['note']);
     });
+  }
+
+  Future<int> deleteList(ShoppingList list) async {
+    int result =
+        await db!.delete('items', where: 'idList = ?', whereArgs: [list.id]);
+    result = await db!.delete('lists', where: 'id = ?', whereArgs: [list.id]);
+    return result;
+  }
+
+    Future<int> deleteItem(ListItems item) async {
+      int result = await db!.delete('items', where: 'id = ?', whereArgs: [item.id]);
+      return result;
   }
 }

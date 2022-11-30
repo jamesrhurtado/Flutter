@@ -22,7 +22,7 @@ class _FavouriteRestaurantsState extends State<FavouriteRestaurants> {
           title: const Text("Favourite Restaurants"),
         ),
         body: FutureBuilder<List<Restaurant>>(
-          future: appDatabase.getProducts(),
+          future: appDatabase.getRestaurant(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               List<Restaurant>? restaurantList = snapshot.data;
@@ -40,7 +40,7 @@ class _FavouriteRestaurantsState extends State<FavouriteRestaurants> {
                         icon: const Icon(Icons.restore_from_trash),
                         color: Colors.grey,
                         onPressed: () {
-                          appDatabase.deleteProduct(RestaurantsCompanion(
+                          appDatabase.deleteRestaurant(RestaurantsCompanion(
                             id: dr.Value(restaurant.id),
                             title: dr.Value(restaurant.title),
                             poster: dr.Value(restaurant.poster),
@@ -68,7 +68,7 @@ class _FavouriteRestaurantsState extends State<FavouriteRestaurants> {
     scaffold.showSnackBar(
       SnackBar(
         content:
-            const Text('Product removed. Update the page to see the changes'),
+            const Text('Restaurant removed. Update the page to see the changes'),
         action: SnackBarAction(
             label: 'DISMISS', onPressed: scaffold.hideCurrentSnackBar),
       ),

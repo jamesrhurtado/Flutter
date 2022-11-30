@@ -28,19 +28,19 @@ class MyDatabase extends _$MyDatabase {
   @override
   int get schemaVersion => 1;
   //CRUD
-  Future<List<Restaurant>> getProducts() async {
+  Future<List<Restaurant>> getRestaurant() async {
     return await select(restaurants).get();
   }
 
-  Future<int> insertProduct(RestaurantsCompanion restaurantsCompanion) async {
+  Future<int> insertRestaurant(RestaurantsCompanion restaurantsCompanion) async {
     return await into(restaurants).insert(restaurantsCompanion);
   }
-
-  Future<int> deleteProduct(RestaurantsCompanion restaurantsCompanion) async {
+  
+  Future<int> deleteRestaurant(RestaurantsCompanion restaurantsCompanion) async {
     return await delete(restaurants).delete(restaurantsCompanion);
   }
 
-  Future<bool> updateProduct(RestaurantsCompanion restaurantsCompanion) async {
+  Future<bool> updateRestaurant(RestaurantsCompanion restaurantsCompanion) async {
     return await update(restaurants).replace(restaurantsCompanion);
   }
 }

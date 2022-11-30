@@ -129,7 +129,7 @@ class _RestaurantRowState extends State<RestaurantRow> {
           icon: const Icon(Icons.add),
           color: Colors.grey,
           onPressed: () {
-            appDatabase.insertProduct(RestaurantsCompanion(
+            appDatabase.insertRestaurant(RestaurantsCompanion(
                 id: dr.Value(restaurant.id),
                 title: dr.Value(restaurant.title),
                 poster: dr.Value(restaurant.poster)));
@@ -144,7 +144,7 @@ class _RestaurantRowState extends State<RestaurantRow> {
     final scaffold = ScaffoldMessenger.of(context);
     scaffold.showSnackBar(
       SnackBar(
-        content: const Text('Added to favourites'),
+        content: const Text('Restaurant added to favourites'),
         action: SnackBarAction(
             label: 'DISMISS', onPressed: scaffold.hideCurrentSnackBar),
       ),

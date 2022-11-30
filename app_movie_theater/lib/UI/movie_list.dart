@@ -72,7 +72,8 @@ class _MovieListState extends State<MovieList> {
       if ((_scrollController!.position.pixels ==
           _scrollController!.position.maxScrollExtent) &&
           loading){
-        loadMore();
+        
+        ();
       }
     });
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:supe_restaurants/UI/home_page.dart';
 import 'package:supe_restaurants/auth/blocs/auth_bloc.dart';
 import 'package:supe_restaurants/auth/blocs/auth_events.dart';
 import 'package:supe_restaurants/auth/blocs/auth_state.dart';
@@ -43,7 +44,10 @@ class _LoginPageState extends State<LoginPage> {
         body: BlocListener<AuthBloc, AuthState>(
           listener: (context, state) {
             if (state is UserLoginSuccessState) {
-              //Navigator.pushNamed(context, ServicesView.routeName);
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const HomePage()),
+              );
             }
           },
           child: SingleChildScrollView(
@@ -90,8 +94,7 @@ class _LoginPageState extends State<LoginPage> {
           style: const ButtonStyle(
             minimumSize:
                 MaterialStatePropertyAll<Size>(Size(double.infinity, 40)),
-            backgroundColor: MaterialStatePropertyAll<Color>(
-                Colors.deepOrange),
+            backgroundColor: MaterialStatePropertyAll<Color>(Colors.deepOrange),
           ),
           child: const Text(
             "Sign in",
@@ -103,20 +106,19 @@ class _LoginPageState extends State<LoginPage> {
         ));
   }
 
-
   Container registerUserButton(BuildContext context) {
     return Container(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         width: MediaQuery.of(context).size.width,
         child: ElevatedButton(
           onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterUser()));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => RegisterUser()));
           },
           style: const ButtonStyle(
             minimumSize:
                 MaterialStatePropertyAll<Size>(Size(double.infinity, 40)),
-            backgroundColor: MaterialStatePropertyAll<Color>(
-                Colors.deepOrange),
+            backgroundColor: MaterialStatePropertyAll<Color>(Colors.deepOrange),
           ),
           child: const Text(
             "Register",

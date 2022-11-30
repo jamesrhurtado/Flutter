@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:supe_restaurants/UI/login_user.dart';
 
 class RegisterUser extends StatefulWidget {
   RegisterUser({super.key});
@@ -41,8 +42,8 @@ class _RegisterUserState extends State<RegisterUser> {
                     padding: const EdgeInsets.symmetric(
                         vertical: 20, horizontal: 20),
                     decoration: const BoxDecoration(
-                        color: Colors.white,
-                        ),
+                      color: Colors.white,
+                    ),
                     child: Form(
                       key: _keyForm,
                       child: Column(
@@ -100,18 +101,21 @@ class _RegisterUserState extends State<RegisterUser> {
         child: ElevatedButton(
           onPressed: () {
             if (_keyForm.currentState!.validate()) {
-              //print("validación exitosa");
+              print("validación exitosa");
               registerUser();
-              //Navigator.pushNamed(context, LoginPage.RouteName);
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => LoginPage()),
+              );
             } else {
-              //print("there was an error");
+              print("there was an error");
             }
           },
           style: ButtonStyle(
             minimumSize:
                 const MaterialStatePropertyAll<Size>(Size(double.infinity, 40)),
-            backgroundColor: const MaterialStatePropertyAll<Color>(
-                Colors.deepOrange),
+            backgroundColor:
+                const MaterialStatePropertyAll<Color>(Colors.deepOrange),
             shape: MaterialStateProperty.all(
               RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
@@ -127,7 +131,6 @@ class _RegisterUserState extends State<RegisterUser> {
           ),
         ));
   }
-
 
   SizedBox sizedBox() => const SizedBox(height: 15);
 

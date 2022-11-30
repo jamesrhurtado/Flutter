@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:supe_restaurants/UI/favourite_restaurants.dart';
 import 'package:supe_restaurants/UI/find_restaurants.dart';
 import 'package:supe_restaurants/UI/login_user.dart';
+import 'package:supe_restaurants/auth/secure_storage.dart';
 import 'package:supe_restaurants/database/database.dart';
 
 class HomePage extends StatefulWidget {
@@ -16,6 +17,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late MyDatabase appDatabase;
+  final storage = SecureStorage();
   @override
   Widget build(BuildContext context) {
     return Provider(
@@ -58,12 +60,13 @@ class _HomePageState extends State<HomePage> {
                   child: const Text('Log out',
                       style:
                           TextStyle(color: Color.fromARGB(255, 255, 255, 255))),
-                  onPressed: () {
+                  onPressed: () async {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => LoginPage()),
                     );
+                    await storage.deleteAll();
                   },
                 ),
               ],
